@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>管理后台 - Harrison</title>
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+  <!-- Login Page -->
+  <div id="loginPage" class="login-page">
+    <div class="login-box">
+      <h1 class="login-logo">Harrison</h1>
+      <p class="login-subtitle">管理后台</p>
+      <form id="loginForm" class="login-form">
+        <div class="form-group">
+          <label>用户名</label>
+          <input type="text" id="username" required placeholder="请输入用户名">
+        </div>
+        <div class="form-group">
+          <label>密码</label>
+          <input type="password" id="password" required placeholder="请输入密码">
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">登录</button>
+      </form>
+      <p class="login-hint">默认账号：admin / admin123</p>
+    </div>
+  </div>
+
+  <!-- Dashboard -->
+  <div id="adminDashboard" class="admin-dashboard hidden">
+    <aside class="sidebar">
+      <div class="sidebar-logo">Harrison</div>
+      <nav class="sidebar-nav">
+        <a href="#" class="nav-link active" data-section="portfolios">作品集管理</a>
+        <a href="#" class="nav-link" data-section="gallery">资料库管理</a>
+        <a href="#" class="nav-link" data-section="categories">分类管理</a>
+        <a href="#" class="nav-link" data-section="hero">Hero 媒体管理</a>
+        <a href="#" class="nav-link" data-section="resources">资源库管理</a>
+        <a href="#" class="nav-link" data-section="socials">社交媒体链接</a>
+        <a href="#" class="nav-link" data-section="wechat">微信二维码管理</a>
+        <a href="#" class="nav-link" data-section="siteconfig">网站设置</a>
+        <a href="#" class="nav-link" data-section="settings">系统设置</a>
+      </nav>
+      <div class="sidebar-footer">
+        <button id="logoutBtn" class="btn btn-secondary btn-block">退出登录</button>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <!-- Portfolio Section -->
+      <section id="portfoliosSection" class="section active">
+        <div class="section-header">
+          <h2>作品集管理</h2>
+          <button class="btn btn-primary" id="addPortfolioBtn">+ 新增作品</button>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead><tr><th>标题</th><th>分类</th><th>图片</th><th>发布时间</th><th>操作</th></tr></thead>
+            <tbody id="portfolioTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Gallery Section -->
+      <section id="gallerySection" class="section">
+        <div class="section-header">
+          <h2>资料库管理</h2>
+          <button class="btn btn-primary" id="addGalleryBtn">+ 新增资料</button>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead><tr><th>标题</th><th>图片数</th><th>发布时间</th><th>操作</th></tr></thead>
+            <tbody id="galleryTableBody"></tbody>
+          </table>
+        </div>
+        
+        <!-- Gallery Images Management -->
+        <div id="galleryImagesSection" style="margin-top:32px;padding-top:24px;border-top:1px solid var(--hairline);">
+          <div class="section-header" style="margin-bottom:16px">
+            <h3>图片管理</h3>
+            <button class="btn btn-primary" id="addGalleryImageBtn" disabled>+ 添加图片</button>
+          </div>
+          <p id="galleryImagesHint" style="color:#999;font-size:13px;margin-bottom:12px;">请先选择或创建一个资料项，然后在此处管理其图片。</p>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead><tr><th>预览</th><th>排序</th><th>操作</th></tr></thead>
+              <tbody id="galleryImagesTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Categories Section -->
+      <section id="categoriesSection" class="section">
+        <div class="section-header">
+          <h2>分类管理</h2>
+          <button class="btn btn-primary" id="addCategoryBtn">+ 新增分类</button>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead><tr><th>分类名称</th><th>排序</th><th>创建时间</th><th>操作</th></tr></thead>
+            <tbody id="categoryTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Hero Images Section -->
+      <section id="heroSection" class="section">
+        <div class="section-header">
+          <h2>Hero 图片/视频管理</h2>
+          <button class="btn btn-primary" id="addHeroBtn">+ 添加媒体</button>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead><tr><th>预览</th><th>类型</th><th>排序</th><th>添加时间</th><th>操作</th></tr></thead>
+            <tbody id="heroTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Resource Section -->
+      <section id="resourcesSection" class="section">
+        <div class="section-header">
+          <h2>资源库管理</h2>
+          <button class="btn btn-primary" id="addResourceBtn">+ 新增资源</button>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead><tr><th>标题</th><th>链接</th><th>图标</th><th>描述</th><th>操作</th></tr></thead>
+            <tbody id="resourceTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Social Section -->
+      <section id="socialsSection" class="section">
+        <div class="section-header">
+          <h2>社交媒体链接</h2>
+          <button class="btn btn-primary" id="addSocialBtn">+ 添加链接</button>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead><tr><th>平台</th><th>链接</th><th>图标</th><th>操作</th></tr></thead>
+            <tbody id="socialTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- WeChat QR Section -->
+      <section id="wechatSection" class="section">
+        <div class="section-header"><h2>微信二维码管理</h2></div>
+        <div class="card" style="max-width:500px">
+          <div class="card-body">
+            <div class="form-group">
+              <label>当前二维码</label>
+              <div id="currentQRPreview" style="width:200px;height:200px;border:1px solid var(--hairline);border-radius:12px;overflow:hidden;margin-bottom:12px;display:flex;align-items:center;justify-content:center;background:#f5f5f5;">
+                <img id="currentQRImg" src="assets/images/wechat.png" alt="当前二维码" style="width:100%;height:100%;object-fit:contain;">
+              </div>
+              <button class="btn btn-danger" id="deleteQRBtn" style="margin-top:8px">删除二维码</button>
+            </div>
+            <div class="form-group">
+              <label>上传新二维码</label>
+              <input type="file" id="wechatQRUpload" accept="image/*">
+              <img id="wechatQRPreview" class="image-preview hidden">
+            </div>
+            <div class="form-group">
+              <label>二维码描述文字</label>
+              <input type="text" id="wechatQRDesc" placeholder="扫码添加微信，欢迎商务合作与项目交流">
+            </div>
+            <button class="btn btn-primary" id="saveWechatQRBtn">保存二维码</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Site Config Section -->
+      <section id="siteconfigSection" class="section">
+        <div class="section-header"><h2>网站设置</h2></div>
+        <div class="card" style="max-width:480px">
+          <div class="card-body">
+            <div class="form-group">
+              <label>网站名称</label>
+              <input type="text" id="siteNameInput" placeholder="Harrison">
+            </div>
+            <div class="form-group">
+              <label>网站 Logo</label>
+              <div id="currentLogoPreview" style="width:80px;height:80px;border:1px solid var(--hairline);border-radius:12px;overflow:hidden;margin-bottom:12px;display:flex;align-items:center;justify-content:center;background:#f5f5f5;">
+                <img id="currentLogoImg" src="assets/images/logo.png" alt="当前Logo" style="width:100%;height:100%;object-fit:contain;">
+              </div>
+              <input type="file" id="siteLogoUpload" accept="image/*">
+              <img id="siteLogoPreview" class="image-preview hidden">
+            </div>
+            <button class="btn btn-primary" id="saveSiteConfigBtn">保存设置</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Settings Section -->
+      <section id="settingsSection" class="section">
+        <div class="section-header"><h2>系统设置</h2></div>
+        <div class="card" style="max-width:480px">
+          <div class="card-body">
+            <div class="form-group">
+              <label>当前用户名</label>
+              <input type="text" id="currentUsername" readonly style="background:#f5f5f5">
+            </div>
+            <div class="form-group">
+              <label>新密码</label>
+              <input type="password" id="newPassword" placeholder="留空则不修改">
+            </div>
+            <button class="btn btn-primary" id="changePasswordBtn">修改密码</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Portfolio Modal -->
+  <div id="portfolioModal" class="modal-overlay">
+    <div class="modal modal-fullscreen">
+      <button class="modal-close-outer" onclick="closePortfolioModal()">&times;</button>
+      <button class="modal-close" onclick="closePortfolioModal()">&times;</button>
+      <div class="modal-header"><h3 id="portfolioModalTitle">新增作品</h3></div>
+      <div class="modal-split">
+        <div class="modal-preview">
+          <img id="portfolioImagePreview" class="hidden" alt="预览">
+          <video id="portfolioImagePreviewVideo" style="display:none" controls></video>
+          <p id="portfolioPreviewPlaceholder" style="color:#999;font-size:14px;">图片预览区域</p>
+          <div id="portfolioCurrentImages" style="margin-top:16px;width:100%;"></div>
+        </div>
+        <div class="modal-form-area">
+          <form id="portfolioForm" class="modal-form">
+            <input type="hidden" id="portfolioId">
+            <div class="form-group"><label>标题 *</label><input type="text" id="portfolioTitle" required></div>
+            <div class="form-group"><label>分类 *</label><select id="portfolioCategory" required></select></div>
+            <div class="form-group"><label>详情文字</label><textarea id="portfolioDescription" rows="4"></textarea></div>
+            <div class="form-group">
+              <label>上传媒体 (可多选)</label>
+              <input type="file" id="portfolioImage" accept="image/*,video/*" multiple>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div id="portfolioThumbnails" class="modal-thumbnails"></div>
+      <div class="modal-footer"><button type="button" class="btn btn-secondary modal-cancel">取消</button><button type="submit" class="btn btn-primary" form="portfolioForm">保存</button></div>
+    </div>
+  </div>
+
+  <!-- Gallery Modal -->
+  <div id="galleryModal" class="modal-overlay">
+    <div class="modal modal-fullscreen">
+      <button class="modal-close-outer" onclick="closeGalleryModal()">&times;</button>
+      <button class="modal-close" onclick="closeGalleryModal()">&times;</button>
+      <div class="modal-header"><h3 id="galleryModalTitle">新增资料</h3></div>
+      <div class="modal-split">
+        <div class="modal-preview">
+          <img id="galleryImagePreview" class="hidden" alt="预览">
+          <video id="galleryImagePreviewVideo" style="display:none" controls></video>
+          <p id="galleryPreviewPlaceholder" style="color:#999;font-size:14px;">图片预览区域</p>
+          <div id="galleryCurrentImages" style="margin-top:16px;width:100%;"></div>
+        </div>
+        <div class="modal-form-area">
+          <form id="galleryForm" class="modal-form">
+            <input type="hidden" id="galleryId">
+            <div class="form-group"><label>标题 *</label><input type="text" id="galleryTitle" required></div>
+            <div class="form-group"><label>详情文字</label><textarea id="galleryDescription" rows="3"></textarea></div>
+            <div class="form-group">
+              <label>上传媒体 (可多选)</label>
+              <input type="file" id="galleryImageUpload" accept="image/*,video/*" multiple>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div id="galleryThumbnails" class="modal-thumbnails"></div>
+      <div class="modal-footer"><button type="button" class="btn btn-secondary modal-cancel">取消</button><button type="submit" class="btn btn-primary" form="galleryForm">保存</button></div>
+    </div>
+  </div>
+
+  <!-- Category Modal -->
+  <div id="categoryModal" class="modal-overlay">
+    <div class="modal modal-sm">
+      <div class="modal-header"><h3 id="categoryModalTitle">新增分类</h3><button class="modal-close" onclick="closeCategoryModal()">&times;</button></div>
+      <form id="categoryForm" class="modal-form">
+        <div class="modal-body">
+          <input type="hidden" id="categoryId">
+          <div class="form-group"><label>分类名称 *</label><input type="text" id="categoryName" required placeholder="如：UI/UX Design"></div>
+          <div class="form-group"><label>排序</label><input type="number" id="categorySort" value="0" min="0"></div>
+        </div>
+        <div class="modal-footer"><button type="button" class="btn btn-secondary modal-cancel">取消</button><button type="submit" class="btn btn-primary">保存</button></div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Hero Image Modal -->
+  <div id="heroModal" class="modal-overlay">
+    <div class="modal modal-sm">
+      <div class="modal-header"><h3 id="heroModalTitle">添加媒体</h3><button class="modal-close" onclick="closeHeroModal()">&times;</button></div>
+      <form id="heroForm" class="modal-form">
+        <div class="modal-body">
+          <input type="hidden" id="heroId">
+          <div class="form-group"><label>媒体类型</label><select id="heroMediaType"><option value="image">图片</option><option value="video">视频</option></select></div>
+          <div class="form-group"><label>上传文件 *</label><input type="file" id="heroImageUpload" accept="image/*,video/*" required><img id="heroImagePreview" class="image-preview hidden"></div>
+          <div class="form-group"><label>排序</label><input type="number" id="heroSort" value="0" min="0"></div>
+        </div>
+        <div class="modal-footer"><button type="button" class="btn btn-secondary modal-cancel">取消</button><button type="submit" class="btn btn-primary">保存</button></div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Resource Modal -->
+  <div id="resourceModal" class="modal-overlay">
+    <div class="modal">
+      <div class="modal-header"><h3 id="resourceModalTitle">新增资源</h3><button class="modal-close" onclick="closeResourceModal()">&times;</button></div>
+      <form id="resourceForm" class="modal-form">
+        <div class="modal-body">
+          <input type="hidden" id="resourceId">
+          <div class="form-group"><label>标题 *</label><input type="text" id="resourceTitle" required></div>
+          <div class="form-group"><label>链接地址 *</label><input type="url" id="resourceUrl" required placeholder="https://"></div>
+          <div class="form-group"><label>描述</label><textarea id="resourceDescription" rows="3"></textarea></div>
+          <div class="form-group"><label>图标 (网站ICO)</label><input type="file" id="resourceIcon" accept="image/*"><img id="resourceIconPreview" class="image-preview hidden"></div>
+        </div>
+        <div class="modal-footer"><button type="button" class="btn btn-secondary modal-cancel">取消</button><button type="submit" class="btn btn-primary">保存</button></div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Social Modal -->
+  <div id="socialModal" class="modal-overlay">
+    <div class="modal">
+      <div class="modal-header"><h3 id="socialModalTitle">添加链接</h3><button class="modal-close" onclick="closeSocialModal()">&times;</button></div>
+      <form id="socialForm" class="modal-form">
+        <div class="modal-body">
+          <input type="hidden" id="socialId">
+          <div class="form-group"><label>平台名称 *</label><input type="text" id="socialPlatform" required placeholder="如：小红书、抖音、视频号"></div>
+          <div class="form-group"><label>链接地址 *</label><input type="url" id="socialUrl" required placeholder="https://"></div>
+          <div class="form-group"><label>图标</label><input type="file" id="socialIcon" accept="image/*"><img id="socialIconPreview" class="image-preview hidden"></div>
+        </div>
+        <div class="modal-footer"><button type="button" class="btn btn-secondary modal-cancel">取消</button><button type="submit" class="btn btn-primary">保存</button></div>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

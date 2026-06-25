@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Harrison - 个人作品集</title>
+  <link rel="icon" type="image/png" href="assets/images/logo.png">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container header-inner">
+      <a href="/" class="logo" id="siteLogo">
+        <img src="assets/images/logo.png" alt="Logo" class="logo-icon" id="logoImg">
+        <span class="logo-text" id="siteName">Harrison</span>
+      </a>
+      <nav class="nav">
+        <a href="#works" class="nav-link">作品集</a>
+        <a href="#gallery" class="nav-link">资料库</a>
+        <a href="#resources" class="nav-link">资源库</a>
+        <a href="#contact" class="nav-link">联系我们</a>
+      </nav>
+      <button class="mobile-menu-btn" aria-label="菜单">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container hero-layout">
+      <div class="hero-left">
+        <p class="hero-eyebrow">MY JOB</p>
+        <h1 class="hero-title">
+          我的工作涉及<br>
+          <span class="red-text">UI/UX Design</span>
+          <span class="scrolling-text" id="scrollingText"></span>
+        </h1>
+        <div class="hero-social" id="heroSocial"></div>
+        <div class="search-box">
+          <input type="text" id="searchInput" placeholder="搜索作品名称关键词...">
+          <button id="searchBtn">搜索</button>
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="hero-image" id="heroImage">
+          <img src="assets/images/logo.png" alt="Hero" onerror="this.parentElement.style.background='#ebebeb'">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Works Section -->
+  <section id="works" class="section">
+    <div class="container">
+      <h2 class="section-title">作品集 <span class="section-subtitle">Portfolio</span></h2>
+      <div class="filter-bar" id="filterBar">
+        <button class="filter-btn active" data-category="all">全部</button>
+      </div>
+      <div id="portfolioGrid" class="grid"></div>
+    </div>
+  </section>
+
+  <!-- Gallery Section -->
+  <section id="gallery" class="section section-alt">
+    <div class="container">
+      <h2 class="section-title">资料库 <span class="section-subtitle">Gallery</span></h2>
+      <div id="galleryList" class="gallery-list"></div>
+    </div>
+  </section>
+
+  <!-- Resources Section -->
+  <section id="resources" class="section">
+    <div class="container">
+      <h2 class="section-title">资源库 <span class="section-subtitle">Resources</span></h2>
+      <div id="resourceList" class="resource-list"></div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="section section-alt">
+    <div class="container">
+      <h2 class="section-title">联系我们 <span class="section-subtitle">Contact</span></h2>
+      <div class="contact-grid">
+        <div class="contact-card-info">
+          <p class="contact-subtitle">商务合作 / 项目咨询 欢迎通过微信或社交平台联系我</p>
+          <div class="social-row" id="footerSocialRow"></div>
+        </div>
+        <div class="contact-card-action">
+          <button class="btn btn-primary btn-wechat" id="chatBtn">
+            <img src="assets/images/wechat.png" alt="微信" class="btn-wechat-icon">
+            聊一聊
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <img src="assets/images/logo.png" alt="Logo" class="footer-logo" id="footerLogoImg">
+          <p>&copy; 2025 Harrison. All rights reserved.</p>
+        </div>
+        <div class="footer-links">
+          <a href="#works">作品集</a>
+          <a href="#gallery">资料库</a>
+          <a href="#resources">资源库</a>
+          <a href="#contact">联系我们</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-bottom-inner">
+          <div class="visit-stats">
+            <div class="visit-item">
+              <span class="visit-icon">👁️</span>
+              <span>本站总访问量：</span>
+              <span id="footerVisitCount" class="visit-num">0</span>
+            </div>
+            <div class="visit-item">
+              <span class="visit-icon">📅</span>
+              <span>今日访问：</span>
+              <span id="todayVisitCount" class="visit-num">0</span>
+            </div>
+          </div>
+          <p class="footer-credit">Designed with ❤️ by Harrison</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- QR Code Modal -->
+  <div class="modal-overlay" id="qrModal">
+    <div class="modal modal-sm">
+      <div class="modal-header">
+        <h3>扫码添加微信</h3>
+        <button class="modal-close" onclick="closeQRModal()">&times;</button>
+      </div>
+      <div class="modal-body modal-body-qr">
+        <img id="qrModalImage" src="assets/images/wechat.png" alt="微信二维码">
+        <p id="qrModalDesc">扫码添加微信，欢迎商务合作与项目交流</p>
+        <button class="btn btn-secondary" onclick="closeQRModal()">关闭</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Detail Page (sub-page, not modal) -->
+  <div class="detail-page" id="detailPage">
+    <div class="detail-page-backdrop"></div>
+    <div class="detail-page-content">
+      <div class="detail-page-header">
+        <button class="detail-back-btn" onclick="closeDetailPage()">
+          <span class="back-arrow">←</span> 返回
+        </button>
+      </div>
+      <div class="detail-page-body">
+        <h1 id="detailPageTitle" class="detail-page-title"></h1>
+        <div class="detail-page-meta">
+          <span class="detail-page-category" id="detailPageCategory"></span>
+          <span class="detail-page-date" id="detailPageDate"></span>
+        </div>
+        <div id="detailPageGallery" class="detail-page-gallery"></div>
+        <div id="detailPageDesc" class="detail-page-desc"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Portfolio Detail Modal -->
+  <div class="modal-overlay" id="portfolioModal">
+    <div class="modal modal-fullscreen">
+      <button class="modal-close-outer" onclick="closePortfolioModal()"><span class="close-icon">&times;</span></button>
+      <div class="modal-split">
+        <div class="modal-preview">
+          <div class="modal-media-container">
+            <img id="portfolioModalImage" src="" alt="作品预览" style="display:none">
+            <video id="portfolioModalVideo" style="display:none" controls></video>
+          </div>
+          <div id="portfolioModalThumbnails" class="modal-thumbnails"></div>
+        </div>
+        <div class="modal-form-area">
+          <h2 id="portfolioModalTitle" class="detail-page-title"></h2>
+          <div class="detail-page-meta">
+            <span class="detail-page-category" id="portfolioModalCategory"></span>
+            <span class="detail-page-date" id="portfolioModalDate"></span>
+          </div>
+          <div id="portfolioModalDesc" class="detail-page-desc"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Gallery Detail Modal -->
+  <div class="modal-overlay" id="galleryModal">
+    <div class="modal modal-fullscreen">
+      <button class="modal-close-outer" onclick="closeGalleryModal()"><span class="close-icon">&times;</span></button>
+      <div class="modal-split">
+        <div class="modal-preview">
+          <div class="modal-media-container">
+            <img id="galleryModalImage" src="" alt="资料预览" style="display:none">
+            <video id="galleryModalVideo" style="display:none" controls></video>
+          </div>
+          <div id="galleryModalThumbnails" class="modal-thumbnails"></div>
+        </div>
+        <div class="modal-form-area">
+          <h2 id="galleryModalTitle" class="detail-page-title"></h2>
+          <div class="detail-page-meta">
+            <span class="detail-page-date" id="galleryModalDate"></span>
+          </div>
+          <div id="galleryModalDesc" class="detail-page-desc"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
